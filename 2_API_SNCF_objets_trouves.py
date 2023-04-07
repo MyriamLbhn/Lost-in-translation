@@ -33,4 +33,15 @@ for gare in gares_parisiennes:
         i += 1
 
 connexion.commit()
+
+# Ajout des colonnes année et semaine
+
+df = pd.read_sql_query('SELECT * FROM ObjetsTrouves', connexion)
+
+df['annee'] = pd.to_datetime(df['date']).dt.year
+df['semaine'] = pd.to_datetime(df['date']).dt.isocalendar().week
+
+
+df.to_sql('ObjetsTrouves', connexion, if_exists='replace', index=False)
+
 connexion.close()

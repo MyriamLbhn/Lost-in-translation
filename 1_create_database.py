@@ -31,8 +31,8 @@ curseur.execute("""
                     frequentation_2020 INTEGER NOT NULL,
                     frequentation_2021 INTEGER NOT NULL,
                     frequentation_2022 INTEGER NOT NULL,
-                    latitude FLOAT NOT NULL,
-                    longitude FLOAT NOT NULL
+                    latitude FLOAT,
+                    longitude FLOAT 
                 )
                 """)
 connexion.commit()
