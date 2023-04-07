@@ -73,3 +73,38 @@ else:
     st.write("Pour l'objet " + type_objet + ".")
 st.write("")
 folium_static(m)
+
+
+import sqlite3
+import pandas as pd
+
+# Connexion à la base de données
+conn = sqlite3.connect('bdd.db')
+
+# Chargement des données de la table ObjetsTrouves dans un DataFrame
+objets_df = pd.read_sql_query('SELECT date, COUNT(*) as nb_objets FROM ObjetsTrouves GROUP BY date', conn)
+
+# Chargement des données de la table Temperatures dans un DataFrame
+temps_df = pd.read_sql_query('SELECT date, temperature FROM Temperatures', conn)
+
+# Fusion des deux DataFrames sur la colonne date
+df = pd.merge(objets_df, temps_df, on='date', how='inner')
+
+# Fermeture de la connexion à la base de données
+conn.close()
+
+import streamlit as st
+import altair as alt
+
+# Affichage du scatterplot
+scatterplot = alt.Chart(df).mark_circle().encode(
+    x='temperature',
+    y='nb_objets'
+)
+
+st.altair_chart(scatterplot, use_container_width=True)
+
+# Calcul de la corrélation entre la température et le nombre d'objets trouvés
+corr = df['temperature'].corr(df['nb_objets'])
+st.write(f'Corrélation entre la température et le nombre d\'objets trouvés : {corr:.2f}')
+

@@ -22,7 +22,7 @@ for gare in gares_parisiennes:
             fields = record["fields"]
             date_string = fields["date"]
             date_string = re.sub(r'\+\d\d:\d\d$', '', date_string)  # Supprime le décalage horaire
-            date = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S").strftime('%Y-%m-%d %H:%M:%S')
+            date = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S").strftime('%Y-%m-%d')
             type_objet = fields["gc_obo_nature_c"]
             nom_gare = fields["gc_obo_gare_origine_r_name"]
 
