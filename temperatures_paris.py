@@ -7,6 +7,10 @@ from datetime import datetime, timedelta
 import sqlite3
 import csv
 
+
+###################### RECUPERATION DES DONNEES METEO DE PARIS ENTRE 2019 ET 2022 ###############################
+######################            EN UTILISANT WORLDWEATHERONLINE API             ###############################
+
 # dotenv_path = join(dirname("LOST-IN-TRANSLATION"), '.env')
 # load_dotenv(dotenv_path)
 
@@ -61,6 +65,9 @@ import csv
 
 # # Écrire les données dans le fichier CSV
 # df.to_csv("data_meteo_paris.csv", index=False)
+
+
+##############################################################################################################
 
 connexion = sqlite3.connect("bdd.db")
 curseur = connexion.cursor()
