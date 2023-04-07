@@ -5,7 +5,7 @@ import plotly.express as px
 
 def get_data(type_objet, nom_gare, annee):
     # Connexion à la base de données
-    conn = sqlite3.connect('bdd_streamlit.db')
+    conn = sqlite3.connect('bdd.db')
     
     if type_objet == "Tous" and nom_gare == "Toutes":
         query = f"SELECT semaine, COUNT(*) AS nb_objets FROM ObjetsTrouves WHERE annee = {annee} GROUP BY semaine"
@@ -41,7 +41,7 @@ def create_plot(type_objet, nom_gare, annee):
 
 
 # Connexion à la base de données
-conn = sqlite3.connect('bdd_streamlit.db')
+conn = sqlite3.connect('bdd.db')
     
 # Récupération des données dans un DataFrame
 df = pd.read_sql_query("SELECT * FROM ObjetsTrouves", conn)
