@@ -87,4 +87,4 @@ def update_objets_trouves_a_bdd():
 
  
 # ajouter_objets_trouves_a_bdd()           
-#update_objets_trouves_a_bdd()
+update_objets_trouves_a_bdd()
