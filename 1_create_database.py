@@ -9,6 +9,8 @@ curseur.execute("""
                     type TEXT NOT NULL,
                     nom_gare TEXT NOT NULL,
                     date DATETIME NOT NULL,
+                    annee INTEGER,
+                    semaine INTEGER,
                     FOREIGN KEY(date) REFERENCES Temperatures(date)
                     FOREIGN KEY(nom_gare) REFERENCES Gares(nom_gare)
                 )
