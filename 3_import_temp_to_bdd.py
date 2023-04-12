@@ -1,3 +1,5 @@
+import sqlite3
+import csv
 import pandas as pd
 import requests
 import os
@@ -50,12 +52,10 @@ while start_date <= end_date:
 # Stocker les données dans un DataFrame pandas
 df = pd.DataFrame({
     "date": date,
-    "avgtempC": avgtempC,
+    "temperature": avgtempC,
 })
 
-# Écrire les données dans le fichier CSV
-df.to_csv("data_meteo_paris.csv", index=False)
-
-
-
-
+# Écrire les données dans la base de données
+connexion = sqlite3.connect("bdd.db")
+df.to_sql(name="Temperatures", con=connexion, if_exists="append", index=False)
+connexion.close()
