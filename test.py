@@ -8,7 +8,7 @@ import datetime
 import altair as alt
 from scatterplot import scatterplot_temp
 from API_SNCF_objets_trouves import update_objets_trouves_current_year
-from carte_streamlit import create_map
+from functions_analyse_visualisation import create_map
 from histo_streamlit import get_data, create_plot
 
 def page1():
