@@ -70,29 +70,3 @@ def create_barplot2(df, conn):
     df_test.rename(columns={'date': 'nb_objets'}, inplace=True)
     barplot = px.bar(df_test, x="saison", y="nb_objets", color="type", title="Nombre d'objets trouvés par saison et type d'objet", width=1200, height=600)
     return barplot
-
-
-# Créer l'interface utilisateur
-st.title("Analyse des objets trouvés")
-st.write("Affichage du scatterplot du nombre d'objets trouvés en fonction de la température.")
-
-# Récupérer les données
-df , conn = get_data()
-    
-    
-# Créer le scatterplot
-scatterplot = create_scatterplot(df)
-# Créer le premier barplot
-barplot1 = create_boxplot(df)
-
-# Créer le deuxième barplot
-barplot2 = create_barplot2(df, conn)
-    
-# Afficher le scatterplot
-st.plotly_chart(scatterplot)
-    
-# Afficher les barplots
-st.plotly_chart(barplot1)
-st.plotly_chart(barplot2)
-
-conn.close()
