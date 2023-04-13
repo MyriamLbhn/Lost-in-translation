@@ -26,7 +26,10 @@ def create_map(data, year):
     m = folium.Map(location=[48.856614, 2.3522219], zoom_start=12)
     for row in data:
         frequentation, nb_objets_trouves = row[3], row[4]
-        html = f"<h4>{row[0]}</h4><p>Fréquentation {year} : {frequentation}</p><p>Objets trouvés : {nb_objets_trouves}</p>"
+        if year == 2023:
+            html = f"<h4>{row[0]}</h4><p>Fréquentation {year} : Inconnue</p><p>Objets trouvés : {nb_objets_trouves}</p>"
+        else:
+            html = f"<h4>{row[0]}</h4><p>Fréquentation {year} : {frequentation}</p><p>Objets trouvés : {nb_objets_trouves}</p>"
         iframe = branca.element.IFrame(html=html, width=200, height=100)
         popup = folium.Popup(iframe, max_width=2650)
         marker = folium.Marker(location=[row[1], row[2]], popup=popup, icon=folium.Icon(color="blue"))
@@ -55,14 +58,18 @@ st.write("Graphique :")
 st.plotly_chart(fig)
 
 query = f"""
-SELECT ObjetsTrouves.nom_gare, Gares.latitude, Gares.longitude, Gares.frequentation_{annee}, COUNT(*) 
-FROM ObjetsTrouves 
-JOIN Gares ON ObjetsTrouves.nom_gare = Gares.nom_gare 
+SELECT ObjetsTrouves.nom_gare, Gares.latitude, Gares.longitude, """
+if annee != 2023:
+    query += f"Gares.frequentation_{annee}, "
+else:
+    query += "NULL as frequentation, "
+query += f"""COUNT(*)
+FROM ObjetsTrouves
+JOIN Gares ON ObjetsTrouves.nom_gare = Gares.nom_gare
 WHERE strftime('%Y', ObjetsTrouves.date) = '{annee}'
 """
 if type_objet != "Tous": query += f" AND ObjetsTrouves.type = '{type_objet}'"
 query += " GROUP BY ObjetsTrouves.nom_gare"
-
 data = get_data(query).to_numpy()
 m = create_map(data, annee)
 

@@ -15,7 +15,6 @@ for year in range(2019, current_year + 1):
     annees.append(str(year))
     
 gares_parisiennes = ["Paris Gare de Lyon", "Paris Montparnasse", "Paris Gare du Nord", "Paris Est" , "Paris Saint-Lazare" , "Paris Austerlitz" , 'Paris Bercy']
-
     
 def ajouter_objets_trouves():
     connexion = sqlite3.connect("bdd.db")
@@ -41,7 +40,7 @@ def ajouter_objets_trouves():
                 semaine = pd.to_datetime(date).isocalendar().week
 
                 # Vérifier si la semaine correspond à la dernière semaine de l'année précédente
-                if semaine in[52,53] and pd.to_datetime(date).strftime('%Y') != str(annee):
+                if semaine in [52, 53] and pd.to_datetime(date).month == 1 :
                     semaine = 0
 
 
