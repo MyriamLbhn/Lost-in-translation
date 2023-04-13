@@ -36,7 +36,10 @@ st.title("Analyse des objets trouvés dans les gares")
 
 type_objet = st.selectbox("Type d'objet", ["Tous"] + list(df['type'].unique()))
 nom_gare = st.selectbox("Nom de la gare", ["Toutes"] + list(df['nom_gare'].unique()))
-annee = st.slider("Année", 2019, 2022, 2019)
+import datetime
+annee_en_cours = datetime.datetime.now().year
+
+annee = st.slider("Année", 2019, annee_en_cours)
 
 query = f"SELECT semaine, COUNT(*) AS nb_objets FROM ObjetsTrouves WHERE annee = {annee}"
 if type_objet != "Tous": query += f" AND type = '{type_objet}'"
