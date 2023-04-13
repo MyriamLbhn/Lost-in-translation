@@ -85,7 +85,7 @@ def update_objets_trouves_current_year():
                             INSERT INTO ObjetsTrouves (type, nom_gare, date, annee, semaine)
                             VALUES (?, ?, ?, ?, ?)
                             """, (type_objet, nom_gare, date, current_year, semaine))
-
+    logging.info(f"Fin de la récupération des données pour l'année en cours")
     connexion.commit()
     connexion.close()
 
