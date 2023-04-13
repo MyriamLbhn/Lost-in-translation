@@ -6,8 +6,7 @@ import folium
 from streamlit_folium import folium_static
 import branca
 import datetime
-
-
+from API_SNCF_objets_trouves import update_objets_trouves_current_year
 
 def get_data(query):
     conn = sqlite3.connect('bdd.db')
@@ -36,7 +35,18 @@ def create_map(data, year):
         marker.add_to(m)
     return m
 
+
 st.title("Analyse des objets trouvés dans les gares")
+
+
+# Ajout du bouton "Mettre à jour la base de données"
+update_button = st.button("Mettre à jour la base de données")
+
+# Si le bouton est cliqué, mettez à jour la base de données
+if update_button:
+    with st.spinner("Mise à jour de la base de données..."):
+        update_objets_trouves_current_year()
+    st.success("Base de données mise à jour avec succès.")
 
 type_objet = st.selectbox("Type d'objet", ["Tous"] + list(df['type'].unique()))
 nom_gare = st.selectbox("Nom de la gare", ["Toutes"] + list(df['nom_gare'].unique()))

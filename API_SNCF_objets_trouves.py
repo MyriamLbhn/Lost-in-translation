@@ -78,6 +78,9 @@ def update_objets_trouves_current_year():
             nom_gare = fields["gc_obo_gare_origine_r_name"]
             semaine = pd.to_datetime(date).isocalendar().week
             
+            if semaine in [52, 53] and pd.to_datetime(date).month == 1 :
+                    semaine = 0
+            
             curseur.execute("""
                             INSERT INTO ObjetsTrouves (type, nom_gare, date, annee, semaine)
                             VALUES (?, ?, ?, ?, ?)
@@ -102,6 +105,3 @@ def update_objets_trouves_current_year():
 
 #     connexion.commit()
 #     connexion.close()
-
-ajouter_objets_trouves()
-
