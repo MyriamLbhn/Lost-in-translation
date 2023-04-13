@@ -58,15 +58,8 @@ def ajouter_temperatures_bdd():
 
     # Écrire les données dans la base de données
     connexion = sqlite3.connect("bdd.db")
-    curseur = connexion.cursor()
-    curseur.execute("""
-                    CREATE TABLE IF NOT EXISTS Temperatures (
-                        date DATETIME PRIMARY KEY,
-                        temperature INTEGER NOT NULL
-                    )
-                    """)
+    
     logging.basicConfig(level=logging.INFO)
-    logging.info("Table 'Temperatures' créée avec succès dans la base de données")
 
     df.to_sql(name="Temperatures", con=connexion, if_exists="append", index=False)
     logging.info("Données insérées avec succès dans la table 'Temperatures' de la base de données")
@@ -74,4 +67,3 @@ def ajouter_temperatures_bdd():
     connexion.commit()
     connexion.close()
 
-ajouter_temperatures_bdd()
