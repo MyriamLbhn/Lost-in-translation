@@ -74,3 +74,4 @@ def ajouter_temperatures_bdd():
     connexion.commit()
     connexion.close()
 
+ajouter_temperatures_bdd()
