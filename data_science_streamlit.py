@@ -55,11 +55,9 @@ def create_scatterplot(df):
 
     return scatterplot
 
-# Fonction pour créer le premier barplot
-def create_barplot1(df):
-    grouped_data = df.groupby("saison")["nb_objets"].median().apply(np.floor).reset_index()
-    barplot = px.bar(grouped_data, x="saison", y="nb_objets", title="Nombre d'objets trouvés par saison")
-    return barplot
+def create_boxplot(df):
+    boxplot = px.box(df, x="saison", y="nb_objets", title="Nombre d'objets trouvés par saison")
+    return boxplot
 
 # Fonction pour créer le deuxième barplot
 def create_barplot2(df, conn):
@@ -73,33 +71,28 @@ def create_barplot2(df, conn):
     barplot = px.bar(df_test, x="saison", y="nb_objets", color="type", title="Nombre d'objets trouvés par saison et type d'objet", width=1200, height=600)
     return barplot
 
-# Fonction principale pour créer l'interface utilisateur
-def main():
-    # Créer l'interface utilisateur
-    st.title("Analyse des objets trouvés")
-    st.write("Affichage du scatterplot du nombre d'objets trouvés en fonction de la température.")
 
-    # Récupérer les données
-    df , conn = get_data()
-     
-     
-    # Créer le scatterplot
-    scatterplot = create_scatterplot(df)
-    # Créer le premier barplot
-    barplot1 = create_barplot1(df)
+# Créer l'interface utilisateur
+st.title("Analyse des objets trouvés")
+st.write("Affichage du scatterplot du nombre d'objets trouvés en fonction de la température.")
 
-    # Créer le deuxième barplot
-    barplot2 = create_barplot2(df, conn)
-     
-    # Afficher le scatterplot
-    st.plotly_chart(scatterplot)
-     
-    # Afficher les barplots
-    st.plotly_chart(barplot1)
-    st.plotly_chart(barplot2)
+# Récupérer les données
+df , conn = get_data()
     
-    conn.close()
+    
+# Créer le scatterplot
+scatterplot = create_scatterplot(df)
+# Créer le premier barplot
+barplot1 = create_boxplot(df)
 
+# Créer le deuxième barplot
+barplot2 = create_barplot2(df, conn)
+    
+# Afficher le scatterplot
+st.plotly_chart(scatterplot)
+    
+# Afficher les barplots
+st.plotly_chart(barplot1)
+st.plotly_chart(barplot2)
 
-if __name__ == '__main__':
-    main()
+conn.close()
