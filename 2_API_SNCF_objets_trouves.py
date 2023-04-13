@@ -37,11 +37,9 @@ def ajouter_objets_trouves():
                 nom_gare = fields["gc_obo_gare_origine_r_name"]
                 annee = pd.to_datetime(date).year
                 
-                # Obtenir le numéro de semaine correspondant à la date
                 semaine = pd.to_datetime(date).isocalendar().week
 
-                # Vérifier si la semaine correspond à la dernière semaine de l'année précédente
-                if semaine in[52,53] and pd.to_datetime(date).strftime('%Y') != str(annee):
+                if semaine in [52, 53] and pd.to_datetime(date).month == 1 :
                     semaine = 0
 
 
@@ -107,3 +105,4 @@ def update_objets_trouves_current_year():
 #     connexion.close()
 
 ajouter_objets_trouves()
+
