@@ -77,20 +77,6 @@ def page1():
     folium_static(m)
 
 
-    # Affichage du scatterplot
-    scatterplot = alt.Chart(scatterplot_temp()).mark_circle().encode(
-        x='temperature',
-        y='nb_objets'
-    )
-
-    st.altair_chart(scatterplot, use_container_width=True)
-
-    df = scatterplot_temp()
-    # Calcul de la corrélation entre la température et le nombre d'objets trouvés
-    corr = df['temperature'].corr(df['nb_objets'])
-    st.write(f'Corrélation entre la température et le nombre d\'objets trouvés : {corr:.2f}')
-
-
 
 def page2():
 # Fonction pour déterminer la saison en fonction de la date
